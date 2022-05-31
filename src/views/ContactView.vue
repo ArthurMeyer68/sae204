@@ -1,98 +1,19 @@
-<template></template>
+<template>
+  <p class="pt-5 text-center font-bold text-black sm:text-lg md:text-xl xl:text-2xl">NOUS CONTACTER</p>
+  <img src="../assets/img/lignes2_page2.svg" class="ml-auto mr-auto mb-7 mt-3 w-3/12" />
+  <div><Formulaire /></div>
+  <p class="pt-5 pb-7 text-center font-bold text-black sm:text-lg md:text-xl xl:text-xl">321festival@gmail.com</p>
+</template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-auth.js";
+import Formulaire from "../components/FormulaireView.vue";
 
 export default {
-  name: "MonCompte",
-  data() {
-    return {
-      user: {
-        email: "",
-        password: "",
-      },
-      message: null,
-      view: false,
-      type: "password",
-      imageData: null,
-    };
-  },
-  mounted() {
-    this.message = "User non connecté";
-  },
-  methods: {
-    onCnx() {
-      signInWithEmailAndPassword(getAuth(), this.user.email, this.user.password)
-        .then((response) => {
-          this.user = response.user;
-          emitter.emit("connectUser", { user: this.user });
-          console.log("user", this.user);
-          this.message = "User connecté : " + this.user.email;
-        })
-        .catch((error) => {
-          console.log("Erreur connexion", error);
-          this.message = "Erreur d'authentification";
-        });
-    },
-
-    onDcnx() {
-      signOut(getAuth())
-        .then((response) => {
-          this.message = "User non connecté";
-          this.user = {
-            email: null,
-            password: null,
-          };
-          emitter.emit("deConnectUser", { user: this.user });
-        })
-        .catch((error) => {
-          console.log("erreur deconnexion", error);
-        });
-    },
-
-    affiche() {
-      this.view = !this.view;
-      if (this.view) {
-        this.type = "text";
-      } else {
-        this.type = "password";
-      }
-    },
-
-    previewImage: function (event) {
-      // Mise à jour de la photo du participant
-      this.file = this.$refs.file.files[0];
-      // Reference to the DOM input element
-      // Reference du fichier à prévisualiser
-      var input = event.target;
-      // On s'assure que l'on a au moins un fichier à lire
-      if (input.files && input.files[0]) {
-        // Creation d'un filereader
-        // Pour lire l'image et la convertir en base 64
-        var reader = new FileReader();
-        // fonction callback appellée lors que le fichier a été chargé
-        reader.onload = (e) => {
-          // Read image as base64 and set to imageData
-          // lecture du fichier pour mettre à jour
-          // la prévisualisation
-          this.imageData = e.target.result;
-        };
-        // Demarrage du reader pour la transformer en data URL (format base 64)
-        reader.readAsDataURL(input.files[0]);
-      }
-    },
-  },
+  components: { Formulaire },
 };
 </script>
 
-<style scoped>
-a {
-  color: white;
-}
-a:hover {
-  text-decoration: none;
-}
-</style>
+
 
 
 

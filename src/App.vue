@@ -252,19 +252,27 @@
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4">
         <div class="mb-6">
-          <h5 class="mb-2.5 font-bold uppercase">Programmation</h5>
+          <RouterLink to="/programmation">
+            <h5 class="mb-2.5 font-bold uppercase">Programmation</h5>
+          </RouterLink>
         </div>
 
         <div class="mb-6">
-          <h5 class="mb-2.5 font-bold uppercase">Festival</h5>
+          <RouterLink to="/festival">
+            <h5 class="mb-2.5 font-bold uppercase">Festival</h5>
+          </RouterLink>
         </div>
 
         <div class="mb-6">
-          <h5 class="mb-2.5 font-bold uppercase">Contact</h5>
+          <RouterLink to="/contact">
+            <h5 class="mb-2.5 font-bold uppercase">Contact</h5>
+          </RouterLink>
         </div>
 
         <div class="mb-6">
-          <h5 class="mb-2.5 font-bold uppercase">Mentions légales</h5>
+          <RouterLink to="/mentions">
+            <h5 class="mb-2.5 font-bold uppercase">Mentions légales</h5>
+          </RouterLink>
         </div>
       </div>
     </div>
