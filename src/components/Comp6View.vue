@@ -1,29 +1,48 @@
 <template>
   <div class="pl-20">
-    <p class="text-white md:text-xl xl:text-2xl">VENDREDI</p>
+    <p class="text-white md:text-xl xl:text-2xl">{{ jour }}</p>
     <div class="flex">
-      <p class="text-red-600 md:text-3xl xl:text-5xl">10</p>
-      <p class="pl-3 text-white md:text-3xl xl:text-5xl">juin</p>
+      <p class="text-red-600 md:text-3xl xl:text-5xl">{{ date }}</p>
+      <p class="pl-3 text-white md:text-3xl xl:text-5xl">{{ mois }}</p>
     </div>
 
     <p class="pt-2 text-white md:text-xl xl:text-2xl">2022</p>
   </div>
 
-  <img src="../assets/img/page2_1.png" class="ml-auto mr-auto mb-3 w-1/3" />
-  <div class="flex">
-    <p class="text-white md:text-base xl:text-2xl">MUSTANG</p>
-    <p class="pb-10 text-white md:text-base xl:text-2xl">16H</p>
+  <img :src="image" alt="" class="ml-auto mr-auto mb-3 w-1/3" />
+  <div class="flex justify-center">
+    <p class="pr-2 text-white md:text-base xl:text-2xl">{{ nom }}</p>
+    <p class="pb-10 pl-2 text-white md:text-base xl:text-2xl">{{ heure }}</p>
   </div>
 
-  <img src="../assets/img/page2_2.png" class="ml-auto mr-auto mb-3 w-1/3" />
-  <div class="flex">
-    <p class="text-white md:text-base xl:text-2xl">JAIN</p>
-    <p class="pb-10 text-white md:text-base xl:text-2xl">18H</p>
+  <img :src="image2" alt="" class="ml-auto mr-auto mb-3 w-1/3" />
+  <div class="flex justify-center">
+    <p class="pr-2 text-white md:text-base xl:text-2xl">{{ nom2 }}</p>
+    <p class="pb-10 pl-2 text-white md:text-base xl:text-2xl">{{ heure2 }}</p>
   </div>
 
-  <img src="../assets/img/page2_3.png" class="ml-auto mr-auto mb-3 w-1/3" />
-  <div class="flex">
-    <p class="text-white md:text-base xl:text-2xl">FEU! CHATTERTON</p>
-    <p class="pb-10 text-white md:text-base xl:text-2xl">20H</p>
+  <img :src="image3" alt="" class="ml-auto mr-auto mb-3 w-1/3" />
+  <div class="flex justify-center">
+    <p class="pr-2 text-white md:text-base xl:text-2xl">{{ nom3 }}</p>
+    <p class="pl-2 pb-10 text-white md:text-base xl:text-2xl">{{ heure3 }}</p>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    jour: String,
+    date: String,
+    mois: String,
+    nom: String,
+    heure: String,
+    nom2: String,
+    heure2: String,
+    nom3: String,
+    heure3: String,
+    image: String,
+    image2: String,
+    image3: String,
+  },
+};
+</script>
