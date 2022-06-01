@@ -30,6 +30,11 @@
       </p>
     </div>
 
+    <img src="../assets/img/carte.png" class="ml-auto mr-auto mb-7 w-2/12 pb-7" />
+    <div class="mb-7 pb-7 md:px-36 xl:pl-56 xl:pr-64">
+      <p class="text-center font-normal text-white md:text-base xl:text-lg">Utilisez la carte pour découvrir le lieu du festival.</p>
+    </div>
+
     <RouterLink to="/programmation">
       <p class="pt-7 pb-7 text-center text-lg text-white">Découvrez la programmation du festival ici</p>
     </RouterLink>

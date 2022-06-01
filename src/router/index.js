@@ -16,6 +16,8 @@ import Comp9View from "../components/Comp9View.vue"
 import Comp10View from "../components/Comp10View.vue"
 import ArtistesdetView from '../views/ArtistesdetView.vue'
 import FormulaireView from '../components/FormulaireView.vue'
+import MentionsView from '../views/MentionsView.vue'
+import Comp11View from "../components/Comp11View.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +38,8 @@ const router = createRouter({
     { path: '/comp10', name: 'Comp10View', component: Comp10View },
     { path: '/artistesdet', name: 'ArtistesdetView', component: ArtistesdetView },
     { path: '/formulaire', name: 'FormulaireView', component: FormulaireView },
+    { path: '/mentions', name: 'MentionsView', component: MentionsView },
+    { path: '/comp11', name: 'Comp11View', component: Comp11View },
     // ici les autre routes
   ]
 })
