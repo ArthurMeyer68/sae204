@@ -1,4 +1,17 @@
-<template></template>
+<template>
+  <p class="mt-10 text-center text-2xl text-black">Guide de style</p>
+  <div class="pt-10"><Comp1 /></div>
+  <div class="pt-10"><Comp2 /></div>
+  <div class="pt-10"><Comp3 /></div>
+  <div class="pt-10"><Comp4 /></div>
+  <div class="pt-10"><Comp5 /></div>
+  <div class="pt-10"><Comp6 /></div>
+  <div class="bg-black pt-10"><Comp7 /></div>
+  <div class="pt-10"><Comp9 /></div>
+  <div class="pt-10"><Comp10 /></div>
+  <div class="pt-10"><Comp11 /></div>
+  <div class="pt-10"><Formulaire /></div>
+</template>
 <script>
 import Comp1 from "../components/Comp1View.vue";
 import Comp2 from "../components/Comp2View.vue";
