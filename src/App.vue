@@ -12,41 +12,43 @@
         text-center
         font-sans
         shadow
+        dark:bg-white
         sm:flex-row sm:items-baseline sm:justify-between sm:text-left
       "
     >
       <div class="inner mb-2 sm:mb-0">
-        <a href="/" class="hover:text-blue-dark font-sans text-2xl font-bold text-white no-underline">3,2,1</a><br />
+        <a href="/" class="hover:text-blue-dark font-sans text-2xl font-bold text-white no-underline dark:text-black">3,2,1</a><br />
         <span class="text-xs text-red-600">Festival</span>
       </div>
 
       <div class="self-center sm:mb-0">
         <RouterLink to="/programmation">
-          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline">Programmation</a>
+          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline dark:text-black">Programmation</a>
         </RouterLink>
         <RouterLink to="/artistes">
-          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline">Artistes</a>
+          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline dark:text-black">Artistes</a>
         </RouterLink>
         <RouterLink to="/festival">
-          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline">Festival</a>
+          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline dark:text-black">Festival</a>
         </RouterLink>
         <RouterLink to="/concerts">
-          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline">Concerts</a>
+          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline dark:text-black">Concerts</a>
         </RouterLink>
         <RouterLink to="/contact">
-          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline">Contact</a>
+          <a href="#" class="text-md hover:text-blue-dark ml-2 px-1 text-white no-underline dark:text-black">Contact</a>
         </RouterLink>
       </div>
     </nav>
   </header>
   <RouterView />
-  <footer class="bg-black text-center text-white">
+  <footer class="bg-black text-center text-white dark:bg-white dark:text-black">
     <div class="container px-6 pt-6">
       <div class="mb-6 flex justify-center">
         <a
           href="#!"
           type="button"
           class="
+            dark:text-dark
             m-1
             h-9
             w-9
@@ -60,6 +62,7 @@
             ease-in-out
             hover:bg-black hover:bg-opacity-5
             focus:outline-none focus:ring-0
+            dark:border-black
           "
         >
           <svg
@@ -96,6 +99,7 @@
             ease-in-out
             hover:bg-black hover:bg-opacity-5
             focus:outline-none focus:ring-0
+            dark:border-black dark:text-black
           "
         >
           <svg
@@ -132,6 +136,7 @@
             ease-in-out
             hover:bg-black hover:bg-opacity-5
             focus:outline-none focus:ring-0
+            dark:border-black dark:text-black
           "
         >
           <svg
@@ -155,6 +160,7 @@
           href="#!"
           type="button"
           class="
+            dark:
             m-1
             h-9
             w-9
@@ -168,6 +174,7 @@
             ease-in-out
             hover:bg-black hover:bg-opacity-5
             focus:outline-none focus:ring-0
+            dark:border-black dark:text-black
           "
         >
           <svg
@@ -190,7 +197,7 @@
 
       <div>
         <form action="">
-          <div class="gird-cols-1 flex grid items-center justify-center gap-4 md:grid-cols-3">
+          <div class="gird-cols-1 flex grid items-center justify-center gap-4 text-white dark:text-black md:grid-cols-3">
             <div class="md:ml-auto md:mb-6">
               <p class="">
                 <strong>Abonne-toi à notre newsletter</strong>
@@ -216,6 +223,7 @@
                   transition
                   ease-in-out
                   focus:border-blue-600 focus:bg-white focus:text-gray-700 focus:outline-none
+                  dark:border-gray-600 dark:bg-black
                 "
                 id="exampleFormControlInput1"
                 placeholder="Adresse mail"
@@ -241,6 +249,7 @@
                   ease-in-out
                   hover:bg-black hover:bg-opacity-5
                   focus:outline-none focus:ring-0
+                  dark:border-black dark:text-black
                 "
               >
                 S'abonner
@@ -253,33 +262,33 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-4">
         <div class="mb-6">
           <RouterLink to="/programmation">
-            <h5 class="mb-2.5 font-bold uppercase">Programmation</h5>
+            <h5 class="mb-2.5 font-bold uppercase text-white dark:text-black">Programmation</h5>
           </RouterLink>
         </div>
 
         <div class="mb-6">
           <RouterLink to="/festival">
-            <h5 class="mb-2.5 font-bold uppercase">Festival</h5>
+            <h5 class="mb-2.5 font-bold uppercase text-white dark:text-black">Festival</h5>
           </RouterLink>
         </div>
 
         <div class="mb-6">
           <RouterLink to="/contact">
-            <h5 class="mb-2.5 font-bold uppercase">Contact</h5>
+            <h5 class="mb-2.5 font-bold uppercase text-white dark:text-black">Contact</h5>
           </RouterLink>
         </div>
 
         <div class="mb-6">
           <RouterLink to="/mentions">
-            <h5 class="mb-2.5 font-bold uppercase">Mentions légales</h5>
+            <h5 class="mb-2.5 font-bold uppercase text-white dark:text-black">Mentions légales</h5>
           </RouterLink>
         </div>
       </div>
     </div>
 
-    <div class="p-4 text-center" style="background-color: rgba(0, 0, 0, 0.2)">
+    <div class="p-4 text-center text-white dark:text-black" style="background-color: rgba(0, 0, 0, 0.2)">
       © 2022:
-      <a class="text-white">3,2,1 Festival</a>
+      <a class="text-white dark:text-black">3,2,1 Festival</a>
     </div>
   </footer>
 </template>
