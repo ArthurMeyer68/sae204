@@ -1,5 +1,5 @@
 <template>
-  <p class="pt-5 text-center font-bold text-black sm:text-lg md:text-xl xl:text-2xl">LES ARTISTES EN DETAILS</p>
+  <p class="pt-5 text-center font-bold text-black dark:text-white sm:text-lg md:text-xl xl:text-2xl">LES ARTISTES EN DETAILS</p>
   <img src="../assets/img/lignes2_page2.svg" class="ml-auto mr-auto mb-7 mt-3 w-3/12 pb-20" />
   <Comp11
     nom="MUSTANG"
