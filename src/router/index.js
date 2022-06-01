@@ -18,6 +18,8 @@ import ArtistesdetView from '../views/ArtistesdetView.vue'
 import FormulaireView from '../components/FormulaireView.vue'
 import MentionsView from '../views/MentionsView.vue'
 import Comp11View from "../components/Comp11View.vue"
+import P404View from "../views/P404View.vue"
+import GuidedestyleView from "../views/GuidedestyleView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,7 +42,8 @@ const router = createRouter({
     { path: '/formulaire', name: 'FormulaireView', component: FormulaireView },
     { path: '/mentions', name: 'MentionsView', component: MentionsView },
     { path: '/comp11', name: 'Comp11View', component: Comp11View },
-    // ici les autre routes
+    { path: '/:pathMatch(.*)*', name: 'page404', component: P404View },
+    { path: '/guidedestyle', name: 'GuidedestyleView', component: GuidedestyleView },
   ]
 })
 
