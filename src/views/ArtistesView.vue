@@ -1,15 +1,17 @@
 <template>
-  <p class="pt-7 text-center font-bold text-black sm:text-lg md:text-xl xl:text-2xl">LES ARTISTES</p>
+  <p class="pt-7 text-center font-bold text-black dark:text-white sm:text-lg md:text-xl xl:text-2xl">LES ARTISTES</p>
   <img src="../assets/img/lignes2_page2.svg" class="ml-auto mr-auto mb-7 mt-3 w-3/12 pb-7" />
 
   <div class="mb-7 md:px-36 xl:pl-56 xl:pr-64">
-    <p class="mb-7 text-left font-normal md:text-base xl:text-lg">De nombreux artistes pop/rock seront présents au 3,2,1 festival.</p>
-    <p class="text-left font-normal md:text-base xl:text-lg">
+    <p class="text-dark mb-7 text-left font-normal dark:text-white md:text-base xl:text-lg">
+      De nombreux artistes pop/rock seront présents au 3,2,1 festival.
+    </p>
+    <p class="text-dark text-left font-normal dark:text-white md:text-base xl:text-lg">
       Venez découvrir ces artistes qui vous feront voyager pendant leurs prestations.
     </p>
   </div>
 
-  <p class="mb-7 text-center font-bold sm:text-lg md:text-lg xl:text-xl">Les artistes présents au festival :</p>
+  <p class="mb-7 text-center font-bold text-black dark:text-white sm:text-lg md:text-lg xl:text-xl">Les artistes présents au festival :</p>
 
   <div>
     <Comp9 image="/public/page3_1.png" nom="MUSTANG" />
@@ -25,11 +27,11 @@
   </div>
 
   <RouterLink to="/artistesdet">
-    <p class="pt-7 pb-7 text-center text-lg text-black">Découvrez les artistes plus en détail ici</p>
+    <p class="pt-7 pb-7 text-center text-lg text-black dark:text-white">Découvrez les artistes plus en détail ici</p>
   </RouterLink>
 
   <RouterLink to="/programmation">
-    <p class="pt-7 pb-7 text-center text-lg text-black">Découvrez la programmation de ces artistes ici</p>
+    <p class="pt-7 pb-7 text-center text-lg text-black dark:text-white">Découvrez la programmation de ces artistes ici</p>
   </RouterLink>
 </template>
 
