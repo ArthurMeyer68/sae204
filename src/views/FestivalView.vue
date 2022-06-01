@@ -30,9 +30,9 @@
       </p>
     </div>
 
-    <img src="../assets/img/carte.png" class="ml-auto mr-auto mb-7 w-2/12 pb-7" />
+    <img src="../assets/img/carte.png" class="ml-auto mr-auto mb-1 w-2/12 pb-7" />
     <div class="mb-7 pb-7 md:px-36 xl:pl-56 xl:pr-64">
-      <p class="text-center font-normal text-white md:text-base xl:text-lg">Utilisez la carte pour découvrir le lieu du festival.</p>
+      <p class="text-center font-normal text-white md:text-sm xl:text-base">Utilisez la carte pour découvrir le lieu du festival.</p>
     </div>
 
     <RouterLink to="/programmation">
