@@ -1,86 +1,129 @@
 <template>
-  <div>
-    <h5>Firebase - Se connecter</h5>
-    <form @submit.prevent="onCnx()">
-      <div class="input-group mb-3">
+  <div class="pb-20">
+    <p class="pt-7 text-center text-2xl">Liste des artistes</p>
+
+    <form class="mb-3">
+      <p class="text-xl">Nouveau artiste</p>
+      <div class="input-group">
         <div class="input-group-prepend">
-          <button class="btn btn-dark">Email :</button>
+          <span class="input-group-text">Nom</span>
         </div>
-        <input class="form-control" type="text" v-model="user.email" required />
-      </div>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <button class="btn btn-dark">Mot de passe :</button>
-        </div>
-        <input class="form-control" type="password" v-model="user.password" required />
-      </div>
-      <div class="alert alert-warning mb-3 text-center" v-if="message != null">
-        {{ message }}
-      </div>
-      <div>
-        <button class="float-left" @click="onDcnx()">Deconnexion</button>
-        <button variant="dark" class="float-right" type="submit">Connexion</button>
+        <input type="text" v-model="nom" class="form-control" required />
+        <button class="btn btn-light" type="button" @click="createArtistes()" title="Création">
+          <i class="fa fa-save fa-lg"></i>
+        </button>
       </div>
     </form>
+
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="artistes in listeArtistesSynchro" :key="artistes.id">
+          <td>{{ artistes.id }}</td>
+          <td>
+            <input type="text" v-model="artistes.nom" />
+          </td>
+          <td>
+            <button class="btn light" @click.prevent="updateArtistes(artistes)">
+              <i class="fa fa-edit fa-lg"></i>
+            </button>
+            <button class="btn light" @click.prevent="deleteArtistes(artistes)">
+              <i class="fa fa-trash fa-lg"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
   </div>
 </template>
 
 <script>
-import Comp9 from "../components/Comp9View.vue";
-import Comp10 from "../components/Comp10View.vue";
-
 export default {
-  components: { Comp9, Comp10 },
-
   data() {
     return {
-      user: {
-        email: null,
-        password: null,
-      },
-      message: null,
+      listeArtistes: [],
+      nom: null,
+      listeArtistesSynchro: [],
     };
   },
 
-  mounted() {},
+  mounted() {
+    this.getArtistesSynchro();
+  },
 
   methods: {
-    onCnx() {
-      // Se connecter avec user et mot de passe
-      signInWithEmailAndPassword(getAuth(), this.user.email, this.user.password)
-        .then((response) => {
-          // Connexion OK
-          console.log("user connecté", response.user);
-          this.user = response.user;
-          this.message = "User connecté : " + this.user.email;
-        })
-        .catch((error) => {
-          // Erreur de connexion
-          console.log("Erreur connexion", error);
-          this.message = "Erreur d'authentification";
-        });
+    async getArtistesSynchro() {
+      // Obtenir Firestore
+      const firestore = getFirestore();
+      // Base de données (collection)  document pays
+      const dbArtistes = collection(firestore, "artistes");
+      // Liste des pays synchronisée
+      const query = await onSnapshot(dbArtistes, (snapshot) => {
+        //  Récupération des résultats dans listePaysSynchro
+        // On utilse map pour récupérer l'intégralité des données renvoyées
+        // on identifie clairement le id du document
+        // les rest parameters permet de préciser la récupération de toute la partie data
+        this.listeArtistesSynchro = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      });
     },
-    onDcnx() {
-      // Se déconnecter
-      signOut(getAuth())
-        .then((response) => {
-          this.user = getAuth().currentUser;
-          this.user = {
-            email: null,
-            password: null,
-          };
-          console.log("user deconnecté ", this.user);
-          this.message = "user non connecté";
-        })
-        .catch((error) => {
-          console.log("erreur deconnexion ", error);
-        });
+
+    async createArtistes() {
+      // Obtenir Firestore
+      const firestore = getFirestore();
+      // Base de données (collection)  document pays
+      const dbArtistes = collection(firestore, "artistes");
+      // On passe en paramètre format json
+      // Les champs à mettre à jour
+      // Sauf le id qui est créé automatiquement
+      const docRef = await addDoc(dbArtistes, {
+        nom: this.nom,
+      });
+      console.log("document créé avec le id : ", docRef.id);
+    },
+
+    async updateArtistes(artistes) {
+      // Obtenir Firestore
+      const firestore = getFirestore();
+      // Base de données (collection)  document pays
+      // Reference du pays à modifier
+      const docRef = doc(firestore, "artistes", artistes.id);
+      // On passe en paramètre format json
+      // Les champs à mettre à jour
+      await updateDoc(docRef, {
+        nom: artistes.nom,
+      });
+    },
+
+    async deletePays(artistes) {
+      // Obtenir Firestore
+      const firestore = getFirestore();
+      // Base de données (collection)  document pays
+      // Reference du pays à supprimer
+      const docRef = doc(firestore, "artistes", artistes.id);
+      // Suppression du pays référencé
+      await deleteDoc(docRef);
     },
   },
 };
 </script>
 
 <style scoped>
+.center {
+  text-align: center;
+}
+.title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: #34495e;
+}
 </style>
 
 
