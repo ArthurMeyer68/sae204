@@ -41,6 +41,12 @@ import Comp10 from "../components/Comp10View.vue";
 
 export default {
   components: { Comp9, Comp10 },
+
+  data() {
+    return {};
+  },
+
+  mounted() {},
 };
 </script>
 
