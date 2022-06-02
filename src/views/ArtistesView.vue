@@ -8,9 +8,9 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Nom</span>
         </div>
-        <input type="text" v-model="nom" class="form-control" required />
+        <input type="text" v-model="nom" class="form-control border-2" required />
         <button class="btn btn-light" type="button" @click="createArtistes()" title="Création">
-          <i class="fa fa-save fa-lg"></i>
+          <img src="../assets/img/down.svg" class="w-3/12" />
         </button>
       </div>
     </form>
@@ -31,10 +31,10 @@
           </td>
           <td>
             <button class="btn light" @click.prevent="updateArtistes(artistes)">
-              <i class="fa fa-edit fa-lg"></i>
+              <img src="../assets/img/ame.svg" class="w-3/12" />
             </button>
             <button class="btn light" @click.prevent="deleteArtistes(artistes)">
-              <i class="fa fa-trash fa-lg"></i>
+              <img src="../assets/img/trash.svg" class="w-3/12" />
             </button>
           </td>
         </tr>
