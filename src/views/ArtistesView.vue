@@ -10,7 +10,7 @@
         </div>
         <input type="text" v-model="nom" class="form-control border-2" required />
         <button class="btn btn-light" type="button" @click="createArtistes()" title="Création">
-          <img src="../assets/img/down.svg" class="w-3/12" />
+          <img src="../assets/img/down.svg" class="w-2/12" />
         </button>
       </div>
     </form>
@@ -29,12 +29,12 @@
           <td>
             <input type="text" v-model="artistes.nom" />
           </td>
-          <td>
+          <td class="flex">
             <button class="btn light" @click.prevent="updateArtistes(artistes)">
-              <img src="../assets/img/ame.svg" class="w-3/12" />
+              <img src="../assets/img/ame.svg" class="w-1/12" />
             </button>
             <button class="btn light" @click.prevent="deleteArtistes(artistes)">
-              <img src="../assets/img/trash.svg" class="w-3/12" />
+              <img src="../assets/img/trash.svg" class="w-1/12" />
             </button>
           </td>
         </tr>
@@ -45,6 +45,17 @@
 </template>
 
 <script>
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  onSnapshot,
+} from "https://www.gstatic.com/firebasejs/9.7.0/firebase-firestore.js";
+
 export default {
   data() {
     return {
