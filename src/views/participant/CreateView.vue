@@ -88,7 +88,6 @@ export default {
   data() {
     return {
       imageData: null, // Image prévisualisée
-      listePays: [], // Liste des pays pour la nationalité du participant
       participant: {
         // Le participant à créer
         nom: null, // son nom
@@ -120,7 +119,7 @@ export default {
       // La liste est synchronisée
       await onSnapshot(q, (snapshot) => {
         this.listePays = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        console.log("Liste des pays", this.listePays);
+        //console.log("Liste des pays", this.listePays);
       });
     },
 
@@ -156,7 +155,7 @@ export default {
       const refStorage = ref(storage, "participant/" + this.participant.photo);
       // Upload de l'image sur le Cloud Storage
       await uploadString(refStorage, this.imageData, "data_url").then((snapshot) => {
-        console.log("Uploaded a base64 string");
+        //console.log("Uploaded a base64 string");
 
         // Création du participant sur le Firestore
         const db = getFirestore();

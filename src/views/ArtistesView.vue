@@ -141,7 +141,7 @@ export default {
       const docRef = await addDoc(dbArtistes, {
         nom: this.nom,
       });
-      console.log("document créé avec le id : ", docRef.id);
+      // console.log("document créé avec le id : ", docRef.id);
     },
 
     async updateArtistes(artistes) {
