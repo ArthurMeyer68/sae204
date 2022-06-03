@@ -65,7 +65,7 @@
         <div class="card-footer">
           <button type="submit" class="btn btn-dark float-left text-black">Créer</button>
           <button class="btn btn-dark float-right">
-            <router-link class="bg-black" to="/participants">Cancel</router-link>
+            <router-link class="bg-black" to="/artistes">Cancel</router-link>
           </button>
         </div>
       </div>
