@@ -46,18 +46,6 @@
                 <input type="date" class="form-control" v-model="participant.naissance" format="dd/mm/yyyy" required />
               </div>
               <br />
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Pays</span>
-                </div>
-                <select class="custom-select" v-model="participant.nationalite">
-                  <option selected disabled>Sélectionner un Pays</option>
-                  <option v-for="pays in listePays" :key="pays.nom">
-                    {{ pays.nom }}
-                  </option>
-                </select>
-              </div>
-              <br />
             </div>
           </div>
         </div>
