@@ -1,6 +1,6 @@
 <template>
   <p class="pt-5 text-center font-bold text-black dark:text-white sm:text-lg md:text-xl xl:text-2xl">LES ARTISTES EN DETAILS</p>
-  <img src="../assets/img/lignes2_page2.svg" class="ml-auto mr-auto mb-7 mt-3 w-3/12 pb-20" />
+  <img src="/lignes2_page2.svg" class="ml-auto mr-auto mb-7 mt-3 w-3/12 pb-20" />
   <Comp11
     nom="MUSTANG"
     texte="Mustang est un groupe français de rock formé en 2006 à Clermont-Ferrand. Laissez-vous surprendre par un répertoire passionnant et une superbe énergie."

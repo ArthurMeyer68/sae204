@@ -30,7 +30,7 @@
         </div>
         <input type="text" class="form-control border-2" v-model="filter" />
         <button class="btn btn-light" type="button" title="Filtrage">
-          <img src="../assets/img/glass.svg" class="w-1/12" />
+          <img src="/glass.svg" class="w-1/12" />
         </button>
       </div>
     </span>
@@ -52,7 +52,7 @@
           </div>
         </div>
         <button class="btn btn-light" type="button" @click="createArtistes()" title="Création">
-          <img src="../assets/img/down.svg" class="w-2/12" />
+          <img src="/down.svg" class="w-2/12" />
         </button>
       </div>
     </form>
@@ -74,10 +74,10 @@
 
           <td class="flex pl-96">
             <button class="btn light" @click.prevent="updateArtistes(artistes)">
-              <img src="../assets/img/ame.svg" class="w-1/12" />
+              <img src="/ame.svg" class="w-1/12" />
             </button>
             <button class="btn light" @click.prevent="deleteArtistes(artistes)">
-              <img src="../assets/img/trash.svg" class="w-1/12" />
+              <img src="/trash.svg" class="w-1/12" />
             </button>
           </td>
         </tr>
@@ -88,12 +88,12 @@
 
   <RouterLink to="/create">
     <p class="pt-7 text-center text-lg text-black dark:text-white">Création d'un artiste</p>
-    <img src="../assets/img/plus.svg" class="ml-auto mr-auto w-12" />
+    <img src="/plus.svg" class="ml-auto mr-auto w-12" />
   </RouterLink>
 
   <RouterLink to="/liste">
     <p class="pt-7 text-center text-lg text-black dark:text-white">Liste des artistes</p>
-    <img src="../assets/img/ame.svg" class="ml-auto mr-auto w-12" />
+    <img src="/ame.svg" class="ml-auto mr-auto w-12" />
   </RouterLink>
 
   <RouterLink to="/liste">
@@ -102,7 +102,7 @@
 
   <RouterLink to="/delete">
     <p class="pt-7 text-center text-lg text-black dark:text-white">Supprimer des artistes</p>
-    <img src="../assets/img/trash.svg" class="ml-auto mr-auto w-12" />
+    <img src="/trash.svg" class="ml-auto mr-auto w-12" />
   </RouterLink>
 </template>
 
