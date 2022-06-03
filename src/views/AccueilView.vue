@@ -1,7 +1,7 @@
 <template class="bg-gray-800">
-  <div><img src="../assets/img/home_page_img.png" alt="image festival" class="object-contain" /></div>
-  <div><img src="../assets/img/logoh.png" alt="logo festival" class="my-7 ml-auto mr-auto w-6/12" /></div>
-  <div><img src="../assets/img/lignes.svg" class="ml-auto mr-auto mb-7 w-2/3" /></div>
+  <div><img src="/home_page_img.png" alt="image festival" class="object-contain" /></div>
+  <div><img src="/logoh.png" alt="logo festival" class="my-7 ml-auto mr-auto w-6/12" /></div>
+  <div><img src="/lignes.svg" class="ml-auto mr-auto mb-7 w-2/3" /></div>
 
   <p class="mb-7 text-center font-bold text-black dark:text-white sm:text-lg md:text-xl xl:text-2xl">S’amuser et partager !</p>
 
@@ -15,7 +15,7 @@
   </div>
   <div class="pb-7"><Comp1 /></div>
   <p class="px-10 pb-7 text-center font-bold text-black dark:text-white md:text-base xl:text-2xl">ÇA NE COÛTE TROIS FOIS RIEN !</p>
-  <div><img src="../assets/img/home_page_img_4.png" class="ml-auto mr-auto mb-7 w-2/3" /></div>
+  <div><img src="/home_page_img_4.png" class="ml-auto mr-auto mb-7 w-2/3" /></div>
   <div class="mb-7 md:px-36 xl:pl-56 xl:pr-64">
     <p class="mb-7 text-left font-normal text-black dark:text-white md:text-base xl:text-lg">
       Le 3,2,1 festival s’engage à reverser une partie de ses dons aux restos du coeur.
