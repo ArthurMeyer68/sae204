@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AccueilView from '../views/AccueilView.vue'
 import ProgrammationView from '../views/ProgrammationView.vue'
-import ArtistesView from '../views/ArtistesView.vue'
+import ArtistesView from '../views/artistes/ArtistesView.vue'
+import CreateView from '../views/artistes/CreateView.vue'
+import DeleteView from '../views/artistes/DeleteView.vue'
+import UpdateView from '../views/artistes/UpdateView.vue'
 import FestivalView from '../views/FestivalView.vue'
 import ConcertsView from '../views/ConcertsView.vue'
 import ContactView from '../views/ContactView.vue'
@@ -27,6 +30,9 @@ const router = createRouter({
     { path: '/', name: 'AccueilView', component: AccueilView },
     { path: '/programmation', name: 'ProgrammationView', component: ProgrammationView },
     { path: '/artistes', name: 'ArtistesView', component: ArtistesView },
+    { path: '/create', name: 'CreateView', component: CreateView },
+    { path: '/delete', name: 'DeleteView', component: DeleteView },
+    { path: '/update', name: 'UpdateView', component: UpdateView },
     { path: '/festival', name: 'FestivalView', component: FestivalView },
     { path: '/concerts', name: 'ConcertsView', component: ConcertsView },
     { path: '/contact', name: 'ContactView', component: ContactView },
