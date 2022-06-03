@@ -2,6 +2,18 @@
   <div class="pb-20">
     <p class="pt-7 text-center text-2xl">Liste des artistes</p>
 
+    <span class="float-right">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Filtrage</span>
+        </div>
+        <input type="text" class="form-control border-2" v-model="filter" />
+        <button class="btn btn-light" type="button" title="Filtrage">
+          <img src="../assets/img/glass.svg" class="w-1/12" />
+        </button>
+      </div>
+    </span>
+
     <form class="mb-3">
       <p class="text-xl">Nouveau artiste</p>
       <div class="input-group">
@@ -20,13 +32,13 @@
         <tr>
           <th scope="col">Id</th>
           <th scope="col">Nom</th>
-          <th scope="col">Actions</th>
+          <th class="text-left" scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="artistes in listeArtistesSynchro" :key="artistes.id">
           <td>{{ artistes.id }}</td>
-          <td>
+          <td class="pl-20">
             <input type="text" v-model="artistes.nom" />
           </td>
           <td class="flex">
@@ -62,7 +74,40 @@ export default {
       listeArtistes: [],
       nom: null,
       listeArtistesSynchro: [],
+      filter: "",
     };
+  },
+  computed: {
+    // Tri des pays par nom en ordre croissant
+    orderByName: function () {
+      // Parcours et tri des pays 2 à 2
+      return this.listeArtistes.sort(function (a, b) {
+        // Si le nom du pays est avant on retourne -1
+        if (a.nom < b.nom) return -1;
+        // Si le nom du pays est après on retourne 1
+        if (a.nom > b.nom) return 1;
+        // Sinon ni avant ni après (homonyme) on retourne 0
+        return 0;
+      });
+    },
+    // Filtrage de la propriété calculée de tri
+    filterByName: function () {
+      // On effectue le fitrage seulement si le filtre est rnseigné
+      if (this.filter.length > 0) {
+        // On récupère le filtre saisi en minuscule (on évite les majuscules)
+        let filter = this.filter.toLowerCase();
+        // Filtrage de la propriété calculée de tri
+        return this.orderByName.filter(function (artistes) {
+          // On ne renvoie que les pays dont le nom contient
+          // la chaine de caractère du filtre
+          return artistes.nom.toLowerCase().includes(filter);
+        });
+      } else {
+        // Si le filtre n'est pas saisi
+        // On renvoie l'intégralité de la liste triée
+        return this.orderByName;
+      }
+    },
   },
 
   mounted() {
@@ -112,7 +157,7 @@ export default {
       });
     },
 
-    async deletePays(artistes) {
+    async deleteArtistes(artistes) {
       // Obtenir Firestore
       const firestore = getFirestore();
       // Base de données (collection)  document pays
