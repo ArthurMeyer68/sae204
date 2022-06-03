@@ -1,7 +1,7 @@
 <template>
   <div class="bg-black dark:bg-white">
     <p class="text-center font-bold text-white dark:text-black sm:text-lg md:text-xl xl:text-2xl">PROGRAMMATION</p>
-    <img src="../assets/img/lignes_page2.svg" class="ml-auto mr-auto mb-7 mt-3 w-3/12 pb-7" />
+    <img src="/lignes_page2.svg" class="ml-auto mr-auto mb-7 mt-3 w-3/12 pb-7" />
     <Comp6
       jour="VENDREDI"
       date="10"
