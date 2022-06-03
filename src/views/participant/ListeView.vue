@@ -64,6 +64,7 @@
 </template>
 
 <script>
+// Bibliothèque Firestore : import des fonctions
 import {
   getFirestore, // Obtenir le Firestore
   collection, // Utiliser une collection de documents
@@ -106,7 +107,10 @@ export default {
       // Liste des participants triés sur leur nom
       const q = query(dbPart, orderBy("nom", "asc"));
       await onSnapshot(q, (snapshot) => {
-        this.listeParticipant = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        this.listeParticipant = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         // Récupération des images de chaque participant
         // parcours de la liste
         this.listeParticipant.forEach(function (personne) {
@@ -122,7 +126,7 @@ export default {
               personne.photo = url;
             })
             .catch((error) => {
-              //console.log("erreur downloadUrl", error);
+              console.log("erreur downloadUrl", error);
             });
         });
       });
@@ -136,4 +140,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>
 

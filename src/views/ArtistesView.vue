@@ -1,4 +1,25 @@
 <template>
+  <div>
+    <p class="text-bold text-center text-2xl">Liste simple</p>
+    <h5>Liste des artistes</h5>
+  </div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th class="pl-20" scope="col">Nom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="arts in listeArts" :key="arts.id">
+        <td class="text-left">{{ arts.id }}</td>
+        <td class="pl-20">{{ arts.nom }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+
+  <p class="text-bold text-center text-2xl">Liste synchro</p>
   <div class="pb-20">
     <p class="pt-7 text-center text-2xl">Liste des artistes</p>
 
@@ -20,7 +41,16 @@
         <div class="input-group-prepend">
           <span class="input-group-text">Nom</span>
         </div>
+
         <input type="text" v-model="nom" class="form-control border-2" required />
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Photo</span>
+          </div>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" ref="file" id="file" @change="previewImage" />
+          </div>
+        </div>
         <button class="btn btn-light" type="button" @click="createArtistes()" title="Création">
           <img src="../assets/img/down.svg" class="w-2/12" />
         </button>
@@ -32,7 +62,7 @@
         <tr>
           <th scope="col">Id</th>
           <th scope="col">Nom</th>
-          <th class="text-left" scope="col">Actions</th>
+          <th class="pr-96" scope="col">Image</th>
         </tr>
       </thead>
       <tbody>
@@ -41,7 +71,8 @@
           <td class="pl-20">
             <input type="text" v-model="artistes.nom" />
           </td>
-          <td class="flex">
+
+          <td class="flex pl-96">
             <button class="btn light" @click.prevent="updateArtistes(artistes)">
               <img src="../assets/img/ame.svg" class="w-1/12" />
             </button>
@@ -54,6 +85,25 @@
     </table>
     <hr />
   </div>
+
+  <RouterLink to="/create">
+    <p class="pt-7 text-center text-lg text-black dark:text-white">Création d'un artiste</p>
+    <img src="../assets/img/plus.svg" class="ml-auto mr-auto w-12" />
+  </RouterLink>
+
+  <RouterLink to="/liste">
+    <p class="pt-7 text-center text-lg text-black dark:text-white">Liste des artistes</p>
+    <img src="../assets/img/ame.svg" class="ml-auto mr-auto w-12" />
+  </RouterLink>
+
+  <RouterLink to="/liste">
+    <p class="pt-7 text-center text-lg text-black dark:text-white">Modifier des artistes</p>
+  </RouterLink>
+
+  <RouterLink to="/delete">
+    <p class="pt-7 text-center text-lg text-black dark:text-white">Supprimer des artistes</p>
+    <img src="../assets/img/trash.svg" class="ml-auto mr-auto w-12" />
+  </RouterLink>
 </template>
 
 <script>
@@ -68,12 +118,20 @@ import {
   onSnapshot,
 } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-firestore.js";
 
+import {
+  getStorage, // Obtenir le Cloud Storage
+  ref, // Pour créer une référence à un fichier à uploader
+  getDownloadURL, // Permet de récupérer l'adress complète d'un fichier du Storage
+  uploadString, // Permet d'uploader sur le Cloud Storage une image en Base64
+} from "https://www.gstatic.com/firebasejs/9.7.0/firebase-storage.js";
+
 export default {
   data() {
     return {
-      listeArtistes: [],
+      listeArts: [],
       nom: null,
       listeArtistesSynchro: [],
+      photo: null,
       filter: "",
     };
   },
@@ -111,10 +169,65 @@ export default {
   },
 
   mounted() {
+    this.getArts();
     this.getArtistesSynchro();
   },
 
   methods: {
+    previewImage: function (event) {
+      // Mise à jour de la photo du participant
+      this.file = this.$refs.file.files[0];
+      // Récupérer le nom du fichier pour la photo du participant
+      this.participant.photo = this.file.name;
+      // Reference to the DOM input element
+      // Reference du fichier à prévisualiser
+      var input = event.target;
+      // On s'assure que l'on a au moins un fichier à lire
+      if (input.files && input.files[0]) {
+        // Creation d'un filereader
+        // Pour lire l'image et la convertir en base 64
+        var reader = new FileReader();
+        // fonction callback appellée lors que le fichier a été chargé
+        reader.onload = (e) => {
+          // Read image as base64 and set to imageData
+          // lecture du fichier pour mettre à jour
+          // la prévisualisation
+          this.imageData = e.target.result;
+        };
+        // Demarrage du reader pour la transformer en data URL (format base 64)
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+
+    async getArts() {
+      const firestore = getFirestore();
+      const dbArts = collection(firestore, "arts");
+      const query = await getDocs(dbArts);
+      query.forEach((doc) => {
+        let arts = {
+          id: doc.id,
+          nom: doc.data().nom,
+        };
+        this.listeArts.push(arts);
+      });
+    },
+
+    async createArtistes() {
+      // Obtenir storage Firebase
+      const storage = getStorage();
+      // Référence de l'image à uploader
+      const refStorage = ref(storage, "artistes/" + this.artistes.photo);
+      // Upload de l'image sur le Cloud Storage
+      await uploadString(refStorage, this.imageData, "data_url").then((snapshot) => {
+        console.log("Uploaded a base64 string");
+
+        // Création du participant sur le Firestore
+        const db = getFirestore();
+        const docRef = addDoc(collection(db, "artistes"), this.artistes);
+      });
+      // redirection sur la liste des participants
+      this.$router.push("/participants");
+    },
     async getArtistesSynchro() {
       // Obtenir Firestore
       const firestore = getFirestore();

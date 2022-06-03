@@ -1,15 +1,15 @@
 <template>
-  <div class="container pb-20">
-    <form enctype="multipart/form-data" @submit.prevent="createParticipant">
+  <div class="container">
+    <form enctype="multipart/form-data" @submit.prevent="updateParticipant">
       <div class="card bg-dark">
         <div class="card-header">
-          <h5 style="color: white">Création participant</h5>
+          <h5 style="color: white">Mise à jour participant</h5>
         </div>
 
         <div class="card-body">
           <div class="row">
             <div class="col-6">
-              <div>
+              <div class="text-center">
                 <img class="preview img-fluid" :src="imageData" />
               </div>
             </div>
@@ -19,14 +19,14 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Nom</span>
                 </div>
-                <input class="form-control border-2" placeholder="Nom de la personne" v-model="participant.nom" required />
+                <input class="form-control" placeholder="Nom de la personne" v-model="participant.nom" required />
               </div>
               <br />
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">Prénom</span>
                 </div>
-                <input v-model="participant.prenom" class="form-control border-2" placeholder="Prénom de la personne" key="required" />
+                <input class="form-control" placeholder="Prénom de la personne" v-model="participant.prenom" required />
               </div>
               <br />
               <div class="input-group">
@@ -43,7 +43,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Date naissance</span>
                 </div>
-                <input type="date" class="form-control" v-model="participant.naissance" format="dd/mm/yyyy" required />
+                <input type="date" class="form-control" required v-model="participant.naissance" format="dd/mm/yyyy" />
               </div>
               <br />
               <div class="input-group">
@@ -52,6 +52,7 @@
                 </div>
                 <select class="custom-select" v-model="participant.nationalite">
                   <option selected disabled>Sélectionner un Pays</option>
+
                   <option v-for="pays in listePays" :key="pays.nom">
                     {{ pays.nom }}
                   </option>
@@ -63,9 +64,9 @@
         </div>
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-dark float-left text-black">Créer</button>
+          <button type="submit" class="btn btn-dark float-left">Modifier</button>
           <button class="btn btn-dark float-right">
-            <router-link class="bg-black" to="/participants">Cancel</router-link>
+            <RouterLink to="/participants">Cancel</RouterLink>
           </button>
         </div>
       </div>
@@ -76,28 +77,33 @@
 <script>
 // Bibliothèque Firestore : import des fonctions
 import {
-  getFirestore, // Obtenir le Firestore
-  collection, // Utiliser une collection de documents
-  doc, // Obtenir un document par son id
-  getDocs, // Obtenir la liste des documents d'une collection
-  addDoc, // Ajouter un document à une collection
-  updateDoc, // Mettre à jour un document dans une collection
-  deleteDoc, // Supprimer un document d'une collection
-  onSnapshot, // Demander une liste de documents d'une collection, en les synchronisant
-  query, // Permet d'effectuer des requêtes sur Firestore
-  orderBy, // Permet de demander le tri d'une requête query
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  setDoc,
+  deleteDoc,
+  onSnapshot,
+  query,
+  orderBy,
 } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-firestore.js";
 
-// Cloud Storage : import des fonctions
+// Storage
 import {
-  getStorage, // Obtenir le Cloud Storage
-  ref, // Pour créer une référence à un fichier à uploader
-  getDownloadURL, // Permet de récupérer l'adress complète d'un fichier du Storage
-  uploadString, // Permet d'uploader sur le Cloud Storage une image en Base64
+  getStorage,
+  ref,
+  getDownloadURL,
+  uploadBytes,
+  uploadString,
+  deleteObject,
+  listAll,
 } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-storage.js";
 
 export default {
-  name: "CreateView",
+  name: "UpdateView",
   data() {
     return {
       imageData: null, // Image prévisualisée
@@ -110,13 +116,24 @@ export default {
         naissance: null, // sa date de naissance
         nationalite: null, // sa nationalité
       },
+
+      refParticipant: null, // Référence du participant à modifier
+      imgModifiee: false, // Indique si l'image du participant a été modifiée, par défaut : non
+      photoActuelle: null, // Photo actuelle du participant
     };
   },
   mounted() {
     // Montage de la vue
+    // Récupération du id passé en paramètre
+    // On utilise le id passé par la route
+    // via la variable système $route de la vue
+    console.log("id participant", this.$route.params.id);
+    // Recherche participant concerné
+    this.getParticipant(this.$route.params.id);
     // Appel de la liste des pays
     this.getPays();
   },
+
   methods: {
     async getPays() {
       // Obtenir Firestore
@@ -124,17 +141,43 @@ export default {
       // Base de données (collection)  document pays
       const dbPays = collection(firestore, "pays");
       // Liste des participants triés
-      // query permet de faire une requête sur Firebase
-      // notement pour filtrer, trier ... des données
-      //orderBy permet de préciser sur quel élément trier, et dans quel ordre
-      // ici le nom du pays par ordre croissant (asc)
       const q = query(dbPays, orderBy("nom", "asc"));
-      // Récupération de la liste des pays à partir de la query
-      // La liste est synchronisée
       await onSnapshot(q, (snapshot) => {
         this.listePays = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        console.log("Liste des pays", this.listePays);
       });
+    },
+
+    async getParticipant(id) {
+      // Obtenir Firestore
+      const firestore = getFirestore();
+      // Base de données (collection)  document participant
+      // Récupération sur Firestore du participant via son id
+      const docRef = doc(firestore, "participant", id);
+      // Référence du participant concerné
+      this.refParticipant = await getDoc(docRef);
+      // Test si le participant demandé existe
+      if (this.refParticipant.exists()) {
+        // Si oui on récupère ses données
+        this.participant = this.refParticipant.data();
+        // Mémorisation photoActuelle
+        this.photoActuelle = this.participant.photo;
+      } else {
+        // Sinon simple message d'erreur
+        this.console.log("Participant inexistant");
+      }
+      // Obtenir le Storage
+      const storage = getStorage();
+      // Référence de l'image du participant
+      const spaceRef = ref(storage, "participant/" + this.participant.photo);
+      // Récupération de l'url complète de l'image
+      getDownloadURL(spaceRef)
+        .then((url) => {
+          // Mise à jour de l'image prévisualisée
+          this.imageData = url;
+        })
+        .catch((error) => {
+          console.log("erreur downloadUrl", error);
+        });
     },
 
     previewImage: function (event) {
@@ -142,6 +185,8 @@ export default {
       this.file = this.$refs.file.files[0];
       // Récupérer le nom du fichier pour la photo du participant
       this.participant.photo = this.file.name;
+      // Si cette fonction s'exécute, c'est que l'image est modifiée
+      this.imgModifiee = true;
       // Reference to the DOM input element
       // Reference du fichier à prévisualiser
       var input = event.target;
@@ -162,19 +207,26 @@ export default {
       }
     },
 
-    async createParticipant() {
-      // Obtenir storage Firebase
-      const storage = getStorage();
-      // Référence de l'image à uploader
-      const refStorage = ref(storage, "participant/" + this.participant.photo);
-      // Upload de l'image sur le Cloud Storage
-      await uploadString(refStorage, this.imageData, "data_url").then((snapshot) => {
-        console.log("Uploaded a base64 string");
-
-        // Création du participant sur le Firestore
-        const db = getFirestore();
-        const docRef = addDoc(collection(db, "participant"), this.participant);
-      });
+    async updateParticipant() {
+      // Si l'image a été modifiée
+      if (this.imgModifiee) {
+        // On supprime l'ancienne
+        const storage = getStorage();
+        // Référence du fichier
+        let docRef = ref(storage, "participant/" + this.photoActuelle);
+        // Suppression photo actuelle
+        deleteObject(docRef);
+        // création nouvelle photo
+        // Référence de l'image à uploader
+        docRef = ref(storage, "participant/" + this.participant.photo);
+        await uploadString(docRef, this.imageData, "data_url").then((snapshot) => {
+          console.log("Uploaded a base64 string", this.participant.photo);
+        });
+      }
+      // Dans tous les cas on met à jour le participant dans Firestore
+      const firestore = getFirestore();
+      // Modification du participant à partir de son id
+      await updateDoc(doc(firestore, "participant", this.$route.params.id), this.participant);
       // redirection sur la liste des participants
       this.$router.push("/participants");
     },
