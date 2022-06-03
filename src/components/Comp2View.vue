@@ -6,7 +6,7 @@
     </div>
     <img src="/ligne_2.svg" class="ml-auto mr-auto mb-7 w-2/3 pb-7" />
 
-    <div class="bg-[url('/public/img/home_page_img_5.png')] bg-cover">
+    <div class="bg-[url('/home_page_img_5.png')] bg-cover">
       <div class="py-48 text-center text-gray-50 dark:text-gray-900 md:text-base xl:text-2xl">
         <p>Feu! Chatterton</p>
       </div>
