@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container pb-20">
     <form enctype="multipart/form-data" @submit.prevent="deleteParticipant">
       <div class="card bg-dark">
         <div class="card-header">
@@ -54,7 +54,7 @@
         <div class="card-footer">
           <button type="submit" class="btn btn-dark float-left">Supprimer</button>
           <button class="btn btn-dark float-right">
-            <RouterLink to="/participants">Cancel</RouterLink>
+            <RouterLink class="bg-black" to="/artistes">Cancel</RouterLink>
           </button>
         </div>
       </div>

@@ -37,7 +37,7 @@ const router = createRouter({
     { path: '/contact', name: 'ContactView', component: ContactView },
     { path: '/concerts', name: 'ConcertsView', component: ConcertsView },
     { path: '/update', name: 'UpdateView', component: UpdateView },
-    { path: '/deleteP', name: 'DeleteView', component: DeleteView },
+    { path: '/delete', name: 'DeleteView', component: DeleteView },
     { path: '/comp2', name: 'Comp2View', component: Comp2View },
     { path: '/comp3', name: 'Comp3View', component: Comp3View },
     { path: '/comp4', name: 'Comp4View', component: Comp4View },
